@@ -19,21 +19,10 @@ if (storedPlayers) {
     }
 }
 
-if (!sessionStorage.getItem('newPlayers')) {
-    sessionStorage.setItem('newPlayers', JSON.stringify([]));
-}
-
 divParent.appendChild(divChild);
 
-divChild.appendChild(spanP1);
-divChild.appendChild(inputP1);
-divChild.appendChild(errorSpanP1); 
+divChild.append(spanP1 , inputP1 , inputP2 , errorSpanP1 ,spanP2, errorSpanP2, inputP2 ,buttonGo);
 
-divChild.appendChild(spanP2);
-divChild.appendChild(inputP2);
-divChild.appendChild(errorSpanP2);
-
-divChild.appendChild(buttonGo);
 buttonGo.textContent = 'Let\'s go';
 
 spanP1.textContent = 'Player 1';
@@ -54,7 +43,8 @@ buttonGo.classList.add('buttonGo');
 errorSpanP1.classList.add('error'); 
 errorSpanP2.classList.add('error');
 
-buttonGo.addEventListener('click', () => {
+buttonGo.addEventListener('click', (e) => {
+    e.preventDefault();
     const player1 = inputP1.value.trim();
     const player2 = inputP2.value.trim();
 
@@ -77,20 +67,15 @@ buttonGo.addEventListener('click', () => {
         return;
     }
 
-    const newPlayers = JSON.parse(sessionStorage.getItem('newPlayers') || '[]');
-    newPlayers.push({ name: player1, score: 0 });
-    newPlayers.push({ name: player2, score: 0 });
-    sessionStorage.setItem('newPlayers', JSON.stringify(newPlayers));
-    console.log("New players list:", newPlayers);
-
-    Players = Players.concat(newPlayers);
+    Players.push({ name: player1, score: 0 });
+    Players.push({ name: player2, score: 0 });
     console.log("Updated players list:", Players);
 
     localStorage.setItem('players', JSON.stringify(Players));
-    sessionStorage.setItem('newPlayers', JSON.stringify([]));
 
     inputP1.value = '';
     inputP2.value = '';
 
     location.href = '/game.html'; 
+    
 });
