@@ -7,9 +7,11 @@ const spanP2 = document.createElement('span');
 const buttonGo = document.createElement('button');
 const errorSpanP1 = document.createElement('span'); 
 const errorSpanP2 = document.createElement('span'); 
+
 let Players = [];
 
 const storedPlayers = localStorage.getItem('players');
+console.log(storedPlayers)
 if (storedPlayers) {
     try {
         Players = JSON.parse(storedPlayers);
@@ -21,7 +23,7 @@ if (storedPlayers) {
 
 divParent.appendChild(divChild);
 
-divChild.append(spanP1 , inputP1 , inputP2 , errorSpanP1 ,spanP2, errorSpanP2, inputP2 ,buttonGo);
+divChild.append(spanP1, inputP1, errorSpanP1, spanP2, inputP2, errorSpanP2, buttonGo);
 
 buttonGo.textContent = 'Let\'s go';
 
@@ -67,15 +69,25 @@ buttonGo.addEventListener('click', (e) => {
         return;
     }
 
-    Players.push({ name: player1, score: 0 });
-    Players.push({ name: player2, score: 0 });
-    console.log("Updated players list:", Players);
+  
 
-    localStorage.setItem('players', JSON.stringify(Players));
+
+    console.log(Players)
+
+    let allPlayers = [
+        ...Players,
+        { id: id1, name: player1, score: 0 },
+        { id: id2, name: player2, score: 0 }
+];
+
+    console.log("Updated players list:", allPlayers);
+
+    localStorage.setItem('players', JSON.stringify(allPlayers));
 
     inputP1.value = '';
     inputP2.value = '';
 
     location.href = '/game.html'; 
-    
+
+    removeEventListener(type, click)
 });
