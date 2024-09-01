@@ -5,9 +5,11 @@ const divBoard = document.createElement('div');
 const buttonGoBack = document.createElement('button');
 const storedPlayers = JSON.parse(localStorage.getItem('players')) || [];
 
+const storedPlayers = JSON.parse(localStorage.getItem('currentPlayers')) || [];
 
-divGame.append( p, h3 , buttonGoBack, divBoard);
-
+divGame.append(p, h3, buttonGoBack, restGame, divBoard);
+restGame.textContent = 'Restart Game';
+restGame.className = 'restGame';
 buttonGoBack.className = 'buttonGoBack';
 buttonGoBack.textContent = 'Go Back';
 h3.className = 'H3'
