@@ -8,7 +8,9 @@ const buttonGo = document.createElement('button');
 const errorSpanP1 = document.createElement('span'); 
 const errorSpanP2 = document.createElement('span'); 
 
+
 let Players = [];
+let currentPlayers = [];
 
 const storedPlayers = localStorage.getItem('players');
 console.log(storedPlayers)
@@ -56,12 +58,12 @@ buttonGo.addEventListener('click', (e) => {
     let hasError = false;
 
     if (!player1) {
-        errorSpanP1.textContent = 'Please enter Player 1\'s name';
+        errorSpanP1.textContent = 'Please enter your name';
         hasError = true;
     }
 
     if (!player2) {
-        errorSpanP2.textContent = 'Please enter Player 2\'s name';
+        errorSpanP2.textContent = 'Please enter your name';
         hasError = true;
     }
 
@@ -69,20 +71,19 @@ buttonGo.addEventListener('click', (e) => {
         return;
     }
 
-  
+    const id1 = `player_${Date.now()}_${Math.random()}`;
+    const id2 = `player_${Date.now() + 1}_${Math.random()}`;
 
+    const newPlayers = [
+        { id: id1, name: player1, score: 0 , symbol:'X'},
+        { id: id2, name: player2, score: 0 ,symbol:'O' }
+    ];
 
-    console.log(Players)
+    Players = [...Players, ...newPlayers];
+    localStorage.setItem('players', JSON.stringify(Players));
 
-    let allPlayers = [
-        ...Players,
-        { id: id1, name: player1, score: 0 },
-        { id: id2, name: player2, score: 0 }
-];
-
-    console.log("Updated players list:", allPlayers);
-
-    localStorage.setItem('players', JSON.stringify(allPlayers));
+    currentPlayers = [...newPlayers];
+    localStorage.setItem('currentPlayers', JSON.stringify(currentPlayers));
 
     inputP1.value = '';
     inputP2.value = '';
