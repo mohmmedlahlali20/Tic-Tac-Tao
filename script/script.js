@@ -47,8 +47,9 @@ buttonGo.classList.add('buttonGo');
 errorSpanP1.classList.add('error'); 
 errorSpanP2.classList.add('error');
 
-buttonGo.addEventListener('click', (e) => {
+const handleButtonClick = (e) => {
     e.preventDefault();
+
     const player1 = inputP1.value.trim();
     const player2 = inputP2.value.trim();
 
@@ -75,8 +76,8 @@ buttonGo.addEventListener('click', (e) => {
     const id2 = `player_${Date.now() + 1}_${Math.random()}`;
 
     const newPlayers = [
-        { id: id1, name: player1, score: 0 , symbol:'X'},
-        { id: id2, name: player2, score: 0 ,symbol:'O' }
+        { id: id1, name: player1, score: 0, symbol: 'X' },
+        { id: id2, name: player2, score: 0, symbol: 'O' }
     ];
 
     Players = [...Players, ...newPlayers];
@@ -88,7 +89,12 @@ buttonGo.addEventListener('click', (e) => {
     inputP1.value = '';
     inputP2.value = '';
 
-    location.href = '/game.html'; 
+    location.href = '/game.html';
 
-    removeEventListener(type, click)
-});
+    buttonGo.removeEventListener('click', handleButtonClick);
+};
+
+buttonGo.addEventListener('click', handleButtonClick);
+
+
+
